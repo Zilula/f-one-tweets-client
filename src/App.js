@@ -1,6 +1,6 @@
 import React from 'react';
     
-const URL = 'ws://localhost:7890/api/v1/f1/general'
+const URL = 'ws://f-one-tweets-server.herokuapp.com/api/v1/f1/general'
 
 class App extends React.Component {
   state = {
