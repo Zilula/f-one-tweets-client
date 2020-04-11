@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+    
+const URL = 'ws://localhost:7890/api/v1/f1/general'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    data: ''
+  }
+
+  ws = new WebSocket(URL)
+
+  componentDidMount() {
+    this.ws.onopen = () => {
+      // on connecting, do nothing but log it to the console
+      console.log('connected')
+    }
+
+    this.ws.onmessage = evt => {
+      console.log(evt.data)
+      // on receiving a message, add it to the list of messages
+      this.setState({data: evt.data})
+    }
+
+    this.ws.onclose = () => {
+      console.log('disconnected')
+      // automatically try to reconnect on connection loss
+      this.setState({
+        ws: new WebSocket(URL),
+      })
+    }
+  }
+
+
+  render() {
+    return (
+      <div>
+      fuck {this.state.data}
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
