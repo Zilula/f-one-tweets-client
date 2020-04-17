@@ -7,7 +7,7 @@ import './App.css'
 const data = [
   {
     name: "general",
-    url: "ws://localhost:7890/api/v1/f1/general"
+    url: "ws://f-one-tweets-server.herokuapp.com/api/v1/f1/general"
   }
 ]
     
