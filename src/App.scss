@@ -1,0 +1,19 @@
+.app {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: white;
+  background-color: rgb(255, 24, 1);
+  min-height: 100vh;
+  min-width: 100vw;
+}
+.streams-container {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  min-width: 80%;
+  max-width: 80%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+

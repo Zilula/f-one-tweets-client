@@ -1,4 +1,6 @@
 import React from 'react';
+import WebSocket from 'isomorphic-ws'
+import './stream.scss'
     
 class Stream extends React.Component {
   state = {
@@ -35,9 +37,15 @@ class Stream extends React.Component {
 
 
   render() {
+    const {img} = this.props
     return (
       <div className="stream">
-      {this.state.data}
+        <img src={img} alt="Max" className="head-shot"/>
+        {/* <img src="https://cdn.freebiesupply.com/logos/large/2x/red-bull-racing-formula-one-team-logo-svg-vector.svg" className="team-logo" alt="Max"/> */}
+        <div className="tweet-container">
+       <p className="tweet-text">        <img src={img} alt="Max" className="tweet-avatar"/>
+{this.state.data || 'I Am some Place Holder text while i wait to receive an actual tweet'} </p>
+       </div>
       </div>
     )
   }
