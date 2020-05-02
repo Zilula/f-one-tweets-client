@@ -1,10 +1,12 @@
 import React from 'react';
 import WebSocket from 'isomorphic-ws'
+import {map} from 'lodash'
 import './stream.scss'
     
 class Stream extends React.Component {
   state = {
-    data: ''
+    max: {},
+    general: {}
   }
 
   ws = new WebSocket(this.props.URL)
@@ -16,9 +18,19 @@ class Stream extends React.Component {
     }
 
     this.ws.onmessage = evt => {
-      console.log(evt.data)
+      const data = JSON.parse(evt.data) ||  ''
+
+      console.log(data)
       // on receiving a message, add it to the list of messages
-      this.setState({data: evt.data})
+      this.setState(state => {
+        if(data.driver === 'max') {
+          return { max:  data}
+        }
+        if(data.driver === 'max') {
+          return { max:  data}
+        }
+        return state
+      })
     }
 
     this.ws.onclose = () => {
@@ -37,15 +49,21 @@ class Stream extends React.Component {
 
 
   render() {
+    console.log(this.state)
     const {img} = this.props
     return (
-      <div className="stream">
-        <img src={img} alt="Max" className="head-shot"/>
-        {/* <img src="https://cdn.freebiesupply.com/logos/large/2x/red-bull-racing-formula-one-team-logo-svg-vector.svg" className="team-logo" alt="Max"/> */}
-        <div className="tweet-container">
-       <p className="tweet-text">        <img src={img} alt="Max" className="tweet-avatar"/>
-{this.state.data || 'I Am some Place Holder text while i wait to receive an actual tweet'} </p>
-       </div>
+<div>
+       {map(this.state, d =>{
+         return (<div className="stream">
+             <img src={img} alt="Max" className="head-shot"/>
+              <div className="tweet-container">
+                <img src={img} alt="Max" className="tweet-avatar"/>
+                <p>{d.msg}</p>
+              </div>
+          </div>)
+         
+       }
+    )}
       </div>
     )
   }
