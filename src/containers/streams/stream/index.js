@@ -5,11 +5,10 @@ import './stream.scss'
     
 class Stream extends React.Component {
   state = {
-    max: {},
-    general: {}
+   
   }
 
-  ws = new WebSocket(this.props.URL)
+  ws = new WebSocket(this.props.stream.url)
 
   componentDidMount() {
     this.ws.onopen = () => {
@@ -22,15 +21,7 @@ class Stream extends React.Component {
 
       console.log(data)
       // on receiving a message, add it to the list of messages
-      this.setState(state => {
-        if(data.driver === 'max') {
-          return { max:  data}
-        }
-        if(data.driver === 'max') {
-          return { max:  data}
-        }
-        return state
-      })
+      this.setState({...data})
     }
 
     this.ws.onclose = () => {
@@ -49,21 +40,18 @@ class Stream extends React.Component {
 
 
   render() {
-    console.log(this.state)
-    const {img} = this.props
+    const {img, url, name} = this.props.stream
+
+
     return (
-<div>
-       {map(this.state, d =>{
-         return (<div className="stream">
-             <img src={img} alt="Max" className="head-shot"/>
+        <div>
+         <div className="stream">
+             <img src={img} alt={name} className="head-shot"/>
               <div className="tweet-container">
                 <img src={img} alt="Max" className="tweet-avatar"/>
-                <p>{d.msg}</p>
+                <p>{this.state.msg}</p>
               </div>
-          </div>)
-         
-       }
-    )}
+              </div>
       </div>
     )
   }

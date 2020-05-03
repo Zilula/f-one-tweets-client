@@ -1,24 +1,26 @@
 import React from 'react';
-import Stream from './containers/stream/stream'
+import Streams from './containers/streams'
 import { map } from 'lodash'
 import keys from './constants'
 
 import './App.scss'
 
 const data =
-  {
+[  {
     name: "general",
     url: `${keys.SERVER_URL}/api/v1/f1/general`,
+  },  {
+    name: "max",
+    url: `${keys.SERVER_URL}/api/v1/f1/max`,
   }
+]
 
     
 const App = () =>  {
     return (
       <div className="app"> 
         <div className="streams-container">
-        return <>
-        <Stream URL={data.url} img={data.img}/>
-        </>
+        <Streams data={data}/>
         </div>
       </div>
     )
