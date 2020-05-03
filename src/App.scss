@@ -3,13 +3,15 @@
   display: flex;
   justify-content: center;
   color: white;
-  background-color: rgb(255, 24, 1);
+  // background-color: rgb(255, 24, 1);
+  background-color: black;
   min-height: 100vh;
   min-width: 100vw;
 }
 .streams-container {
   display: flex;
   justify-content: center;
+  background-image: url('https://responsive.fxempire.com/cover/1845x1230/webp-lossy-70.q50/_fxempire_/2018/10/trading-abu-dhabi-grand-prix.jpg');
   background-color: white;
   min-width: 80%;
   max-width: 80%;

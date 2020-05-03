@@ -1,16 +1,18 @@
 import React from 'react';
 import WebSocket from 'isomorphic-ws'
-import {map} from 'lodash'
+import {map, truncate, debounce} from 'lodash'
+import car from '../../../merc-car.png'
 import './stream.scss'
     
 class Stream extends React.Component {
-  state = {
-   
-  }
-
+  state = {}
   ws = new WebSocket(this.props.stream.url)
 
+
   componentDidMount() {
+
+    const {reorder} = this.props
+
     this.ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log('connected')
@@ -18,10 +20,12 @@ class Stream extends React.Component {
 
     this.ws.onmessage = evt => {
       const data = JSON.parse(evt.data) ||  ''
-
-      console.log(data)
       // on receiving a message, add it to the list of messages
       this.setState({...data})
+
+       debounce(() => {
+       return reorder(data)
+       }, 500, {maxWait: 500})
     }
 
     this.ws.onclose = () => {
@@ -40,19 +44,17 @@ class Stream extends React.Component {
 
 
   render() {
-    const {img, url, name} = this.props.stream
+    const {headshot, name} = this.props.stream
 
 
     return (
-        <div>
          <div className="stream">
-             <img src={img} alt={name} className="head-shot"/>
               <div className="tweet-container">
-                <img src={img} alt="Max" className="tweet-avatar"/>
-                <p>{this.state.msg}</p>
+                <img src={headshot} alt={name} className="tweet-avatar"/>
+                <p className="tweet-text">{this.props.stream.name}</p>
+                <p className="tweet-text">{truncate(this.state.msg, {length: 100})}</p>
               </div>
               </div>
-      </div>
     )
   }
 }
