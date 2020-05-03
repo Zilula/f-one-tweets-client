@@ -4,7 +4,9 @@ This API contains a list of web socket endpoints that can be publicly accessed. 
 
 ## Available Endpoints 
 
-
+- ws://f-one-tweets-server.herokuapp.com/api/v1/f1/general
+- ws://f-one-tweets-server.herokuapp.com/api/v1/f1/max
+- ws://f-one-tweets-server.herokuapp.com/api/v1/f1/lewis
 
 ## Available Scripts
 
